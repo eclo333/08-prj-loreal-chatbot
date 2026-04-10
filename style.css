@@ -69,6 +69,36 @@ body {
   white-space: pre-line;
 }
 
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.quick-action-btn {
+  border: 1px solid #c7963a;
+  background: #fff;
+  color: #5a4a2f;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.quick-action-btn:hover {
+  background: #c7963a;
+  color: #fff;
+}
+
+.quick-action-btn:focus {
+  outline: 2px solid #c7963a;
+  outline-offset: 2px;
+}
+
 /* messages */
 .msg {
   margin-bottom: 14px;
@@ -82,6 +112,30 @@ body {
 
 .msg.ai {
   color: #5a4a2f;
+}
+
+.product-cards {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.product-card {
+  border: 1px solid #e3d0a8;
+  background: #fffaf2;
+  padding: 12px;
+}
+
+.product-card h3 {
+  font-size: 14px;
+  color: #5a4a2f;
+  margin-bottom: 6px;
+}
+
+.product-card p {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 4px;
 }
 
 /* input row */
@@ -128,12 +182,8 @@ body {
   font-size: 24px;
 }
 
-.chat-form button:hover {
-  background: #666666;
-}
-
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 2px solid #c7963a;
   outline-offset: 2px;
 }
 
