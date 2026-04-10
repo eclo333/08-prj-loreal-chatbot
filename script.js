@@ -4,6 +4,10 @@ const userInput = document.getElementById("userInput");
 const chatWindow = document.getElementById("chatWindow");
 const sendBtn = document.getElementById("sendBtn");
 const quickActions = document.getElementById("quickActions");
+const latestQuestion = document.getElementById("latestQuestion");
+
+// Paste your deployed Cloudflare Worker URL here
+const CLOUDFLARE_WORKER_URL = "https://lorealchatbot.ttrrippyy.workers.dev";
 
 // Basic product data used to show simple recommendation cards in the UI
 const PRODUCT_CATALOG = [
@@ -73,6 +77,15 @@ function addMessage(role, text) {
   chatWindow.appendChild(div);
   // Scroll to the latest message
   chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+// Shows only the current user question and updates every turn
+function setLatestQuestion(text) {
+  if (!latestQuestion) {
+    return;
+  }
+
+  latestQuestion.textContent = `Latest question: ${text}`;
 }
 
 // Find up to two relevant products based on words in the user prompt and AI reply
@@ -153,16 +166,11 @@ addMessage(
 chatForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const apiKey =
-    typeof OPENAI_API_KEY !== "undefined" && OPENAI_API_KEY
-      ? OPENAI_API_KEY
-      : window.OPENAI_API_KEY;
-
-  // If the key is missing, stop early with a clear message
-  if (!apiKey) {
+  // If the worker URL is still placeholder text, show setup guidance
+  if (CLOUDFLARE_WORKER_URL.includes("your-worker-name")) {
     addMessage(
       "ai",
-      "I can't connect yet. Add your OpenAI key in secrets.js and refresh the page.",
+      "I can't connect yet. Add your Cloudflare Worker URL in script.js and refresh.",
     );
     return;
   }
@@ -174,6 +182,7 @@ chatForm.addEventListener("submit", async (e) => {
 
   // Display the user's message in the chat window
   addMessage("user", userText);
+  setLatestQuestion(userText);
 
   // Add the user's message to the conversation history
   messages.push({ role: "user", content: userText });
@@ -189,15 +198,13 @@ chatForm.addEventListener("submit", async (e) => {
   sendBtn.disabled = true;
 
   try {
-    // Send the conversation to the OpenAI API
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    // Send the conversation to the Cloudflare Worker
+    const response = await fetch(CLOUDFLARE_WORKER_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: "gpt-4o",
         messages: messages,
       }),
     });
@@ -225,7 +232,7 @@ chatForm.addEventListener("submit", async (e) => {
     // Show a friendly error so the UI still feels responsive
     addMessage(
       "ai",
-      "I couldn't reach the API right now. Please check your key and try again.",
+      "I couldn't reach your Cloudflare Worker right now. Check the Worker URL and deployment.",
     );
     console.error(error);
   } finally {

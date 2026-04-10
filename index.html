@@ -33,8 +33,42 @@
       <!------- Chat Area ------->
       <main>
         <section class="chatbox">
+          <div
+            id="latestQuestion"
+            class="latest-question"
+            aria-live="polite"
+          ></div>
+
           <div id="chatWindow" class="chat-window">
             <!-- messages will be appended here via JS -->
+          </div>
+
+          <div
+            id="quickActions"
+            class="quick-actions"
+            aria-label="Quick prompts"
+          >
+            <button
+              type="button"
+              class="quick-action-btn"
+              data-prompt="Build a simple morning skincare routine for combination skin."
+            >
+              Morning routine
+            </button>
+            <button
+              type="button"
+              class="quick-action-btn"
+              data-prompt="Recommend a L'Oréal foundation for natural everyday makeup."
+            >
+              Foundation help
+            </button>
+            <button
+              type="button"
+              class="quick-action-btn"
+              data-prompt="Suggest a haircare routine for dry and frizzy hair."
+            >
+              Haircare plan
+            </button>
           </div>
 
           <form id="chatForm" class="chat-form">
@@ -67,8 +101,7 @@
       </footer>
     </div>
 
-    <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
-    <script src="secrets.js"></script>
+    <!-- This frontend now calls Cloudflare Worker (not OpenAI directly) -->
     <script src="script.js"></script>
   </body>
 </html>

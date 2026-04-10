@@ -58,6 +58,16 @@ body {
   margin: 0 0 40px;
 }
 
+.latest-question {
+  min-height: 44px;
+  border: 1px solid #e3d0a8;
+  background: #fffaf2;
+  color: #5a4a2f;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
 .chat-window {
   height: 360px;
   border: 1px solid #c7963a;
@@ -103,15 +113,27 @@ body {
 .msg {
   margin-bottom: 14px;
   line-height: 1.5;
+  max-width: 80%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  width: fit-content;
 }
 
 .msg.user {
   color: #1a1a1a;
   font-weight: 500;
+  background: #f4efe7;
+  border: 1px solid #e3d0a8;
+  margin-left: auto;
+  border-top-right-radius: 4px;
 }
 
 .msg.ai {
   color: #5a4a2f;
+  background: #ffffff;
+  border: 1px solid #d9c49a;
+  margin-right: auto;
+  border-top-left-radius: 4px;
 }
 
 .product-cards {
